@@ -67,6 +67,7 @@ local explorer = {
     enabled = false,
     current_task = nil,
     last_update_time = 0,
+    stuck_check_enabled = true,
     update_interval = 0.1,
 }
 local explored_areas = {}
@@ -97,6 +98,14 @@ function explorer:start(task_name)
     self.enabled = true
     self.current_task = task_name
     self:reset_exploration()
+end
+
+function explorer:disable_stuck_check()
+    self.stuck_check_enabled = false
+end
+
+function explorer:enable_stuck_check()
+    self.stuck_check_enabled = true
 end
 
 function explorer:stop()
@@ -636,6 +645,10 @@ local function move_to_target()
 end
 
 local function check_if_stuck()
+    if not explorer.stuck_check_enabled then
+        return false
+    end
+
     local current_pos = get_player_position()
     local current_time = os.time()
 

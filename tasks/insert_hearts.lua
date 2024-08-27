@@ -33,7 +33,7 @@ local task = {
             hearts.try_insert_heart()
         end
 
-        hearts.handle_insert_waiter(current_time)
+        -- hearts.handle_insert_waiter(current_time)
     end,
 
     on_enter = function()
